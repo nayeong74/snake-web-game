@@ -2,17 +2,18 @@ const canvas = document.getElementById('game');
 const ctx = canvas.getContext('2d');
 const box = 20; // 한 칸의 크기
 const canvasSize = 400;
-let snake, direction, food, score, gameInterval, isGameOver;
+let snake, direction, food, score, gameInterval, isGameOver, speed;
 
 function init() {
   snake = [ { x: 9 * box, y: 9 * box } ];
   direction = 'RIGHT';
   food = randomFood();
   score = 0;
+  speed = 100;
   isGameOver = false;
   document.getElementById('score').textContent = `점수: ${score}`;
   clearInterval(gameInterval);
-  gameInterval = setInterval(draw, 100);
+  gameInterval = setInterval(draw, speed);
 }
 
 function randomFood() {
@@ -70,6 +71,12 @@ function draw() {
     score++;
     document.getElementById('score').textContent = `점수: ${score}`;
     food = randomFood();
+    // 점수가 5의 배수일 때마다 속도 증가(난이도 상승)
+    if (score % 5 === 0 && speed > 40) {
+      speed -= 10;
+      clearInterval(gameInterval);
+      gameInterval = setInterval(draw, speed);
+    }
   } else {
     snake.pop();
   }
