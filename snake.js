@@ -9,7 +9,7 @@ function init() {
   direction = 'RIGHT';
   food = randomFood();
   score = 0;
-  speed = 100;
+  speed = 180; // 처음 속도를 더 느리게(180ms)
   isGameOver = false;
   document.getElementById('score').textContent = `점수: ${score}`;
   clearInterval(gameInterval);
@@ -72,8 +72,8 @@ function draw() {
     document.getElementById('score').textContent = `점수: ${score}`;
     food = randomFood();
     // 점수가 5의 배수일 때마다 속도 증가(난이도 상승)
-    if (score % 5 === 0 && speed > 40) {
-      speed -= 10;
+    if (score % 5 === 0 && speed > 60) {
+      speed -= 15; // 난이도 상승 폭을 더 크게
       clearInterval(gameInterval);
       gameInterval = setInterval(draw, speed);
     }
