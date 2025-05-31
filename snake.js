@@ -28,7 +28,13 @@ function draw() {
 
   // Snake
   for (let i = 0; i < snake.length; i++) {
-    ctx.fillStyle = i === 0 ? '#0f0' : '#fff';
+    if (i === 0) {
+      ctx.fillStyle = '#007a00'; // 머리: 진한 초록
+    } else if (i === snake.length - 1) {
+      ctx.fillStyle = '#ffe066'; // 꼬리: 노란색
+    } else {
+      ctx.fillStyle = '#66ff66'; // 몸통: 연한 초록
+    }
     ctx.fillRect(snake[i].x, snake[i].y, box, box);
   }
 
